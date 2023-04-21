@@ -35,7 +35,7 @@ parseChats <- function(file) {
     thischat <- raw_chat_data[tops[i]:bottoms[i]]
     thischatlist <- list()
     #room id
-    thischatlist$room_id <- gsub(" ", "", x = str_split(thischat[1], ",", simplify = T)[2], fixed = T)
+    thischatlist$room_id <- gsub(" ", "", x = stringr::str_split(thischat[1], ",", simplify = T)[2], fixed = T)
     #started at
     thischatlist$started_at <- lubridate::parse_date_time(x = stringr::str_replace_all(stringr::str_remove_all(stringr::str_remove(thischat[2], pattern = "Started At:, "), pattern = ","), pattern = "/", replacement = "-"), orders = "mdYHMS", tz = "America/New_York")
     #participant data
