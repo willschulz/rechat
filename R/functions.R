@@ -124,12 +124,15 @@ matchAlters <- function(survey_data, chat_data){
 #' getAlterVars()
 
 getAlterVars <- function(survey_data, var_names){
+  for (var_name in var_names) {
+    var_name_new <- paste0("alter_", gsub("ego_", "", var_name))
+    eval(parse(text=paste0("survey_data$",var_name_new," <- rep(NA, nrow(survey_data))")))
+  }
   for (i in 1:nrow(survey_data)) {
     if(!is.na(survey_data$alter_code[i])){
       if (any(survey_data$ego_code == survey_data$alter_code[i], na.rm = T)){
         for (var_name in var_names) {
           var_name_new <- paste0("alter_", gsub("ego_", "", var_name))
-          eval(parse(text=paste0("survey_data$",var_name_new," <- rep(NA, nrow(survey_data))")))
           eval(parse(text=paste0("survey_data$",var_name_new,"[i] <- survey_data$",var_name,"[which(survey_data$ego_code == survey_data$alter_code[i])]")))
         }
       }
