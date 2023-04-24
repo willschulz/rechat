@@ -25,8 +25,8 @@ parseChats <- function(file) {
     thischatlist$messages <- readr::read_delim(I(thischat[(which(thischat == "Messages") + 1):(which(thischat == "Poll Responses") - 2)]), delim = ",", show_col_types = FALSE)
     chats_list[[i]] <- thischatlist
   }
-  for (i in 1:length(chat_data)){
-    chat_data[[i]]$messages <- left_join(chat_data[[i]]$messages, chat_data[[i]]$participants, by = c("participantCode" = "colorCode"))
+  for (i in 1:length(chats_list)){
+    chats_list[[i]]$messages <- left_join(chats_list[[i]]$messages, chats_list[[i]]$participants, by = c("participantCode" = "colorCode"))
   }
   return(chats_list)
 }
