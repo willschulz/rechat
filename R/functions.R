@@ -67,6 +67,7 @@ featurizeChat <- function(chat_data, feature_name = NA, featurization_function, 
 
 matchAlters <- function(survey_data, chat_data){
   survey_data$alter_code <- rep(NA, nrow(survey_data))
+  survey_data$room_id <- rep(NA, nrow(survey_data))
   for (i in 1:length(chat_data)){#for each element of the chat data list
     all_codes <- chat_data[[i]]$participants$receiptCode #get all receipt codes
     for (j in 1:length(all_codes)){
