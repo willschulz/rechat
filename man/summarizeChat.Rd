@@ -16,7 +16,7 @@ summarizeChat(
 \arguments{
 \item{survey_data}{A dataframe of survey responses, including a column named ego_code that contains the receipt code the respondent entered after completing their chat.}
 
-\item{chat_data}{A list of chat data generated from the parseChats function.}
+\item{chat_data}{A list of chat data generated from the parseChat function.}
 
 \item{chat_feature_name}{The name of the chat feature (added to chat_data using featurizeChat) to summarize.}
 

@@ -7,7 +7,7 @@
 featurizeChat(chat_data, feature_name = NA, featurization_function, ...)
 }
 \arguments{
-\item{chat_data}{A list of chat data generated from the parseChats function.}
+\item{chat_data}{A list of chat data generated from the parseChat function.}
 
 \item{feature_name}{Optional name for the feature to be added to chat_data.  If not provided, the feature will be named after the featurization function.}
 
