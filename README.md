@@ -7,7 +7,7 @@ The package can be installed from this repo, using the following code:
 ``` r
 # install.packages("devtools")
 devtools::install_github("willschulz/rechat")
-library(tricordR)
+library(rechat)
 ```
 
 # Gettings Started
