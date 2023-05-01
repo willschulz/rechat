@@ -140,3 +140,46 @@ getAlterVars <- function(survey_data, var_names){
   }
   return(survey_data)
 }
+
+
+#' Print Chat
+#'
+#' This function exports a selected chat as a readable PDF file.
+#' @param chat The chat to print, for example chat_data[[1]]
+#' @param width Width of output file in pixels.
+#' @param height Height of output file in pixels.
+#' @param file File path to save export.
+#' @param format File format for export.  Currently "pdf" and "png" are supported.
+#' @keywords alter
+#' @export
+#' @examples
+#' printChat()
+
+printChat <- function(chat, width=500, height=500, file = "chat_export", format = "pdf"){
+  messages <- chat$messages
+  text = '<html class>'
+  text = c(text, '<head>')
+  text = c(text, '<script src="jquery-3.6.0/jquery.min.js"></script>')
+  text = c(text, '<link href="shiny-css-1.7.4/shiny.min.css" rel="stylesheet">')
+  #text = c(text, '<link href="shinyChatR.css" rel="stylesheet">')
+  text = c(text, '</head>')
+  text = c(text, '<style type="text/css">')
+  text = c(text, system.file("inst", "print_chat.css", package="rechat"))
+  text = c(text, '</style>')
+
+  #text = c(text, '')
+  text = c(text, '<body>')
+  text = c(text, '<div class="chatMessages" width="',width,'px" style="height:',height,'px">\n<div id="test2-chatbox" class="shiny-html-output shiny-bound-output" aria-live="polite">')
+  for (i in 1:nrow(messages)){
+    text = c(text, '<div class="chatMessage',if_else(messages$participantCode[i]==messages$participantCode[1], true = " me", false = ""),'"><p>',messages$message[i],'</br><strong>',if_else(messages$participantCode[i]==messages$participantCode[1], true = "user1", false = "user2"),'</strong>','</p></div>')
+  }
+  text = c(text,'</div>\n</div>')
+  #cat(text, sep = "\n")
+  #text = c(text, '')
+  text = c(text, '</body>')
+  text = c(text, '</html>')
+
+  tmp_file <- tempfile(fileext = ".html")
+  write(text, file = tmp_file)
+  webshot(tmp_file, paste0(file, ".", format), vwidth = 400)
+}
