@@ -56,9 +56,16 @@ survey_data <- summarizeChat(survey_data, chat_data, chat_feature_name = "sentim
 ```
 
 ## Matching Discussion Partner Data
-When you download chat data from your ReChat study, it would be in the form of a csv file.  The following code will read this file into R and convert it to an R list:
+In many analyses, it is appropriate to treat observations as clustered at the chatroom level, which requires constructing an identifier for each chatroom. The `matchAlters` function adds a `room_id` column to the survey dataframe, by matching each `receiptCode` in the survey data (see above) to a `receiptCode` in the chat data:
 
 ``` r
-chat_data <- parseChat("path/to/downloaded_file.csv")
+survey_data <- matchAlters(survey_data, chat_data)
 ```
 
+For dyadic chats, the `matchAlters` function also creates a column, `alter_code`, that identifies each participant's partner.  If the researcher can use the `getAlterVars` function to look up the value of each participant's partner's variables, which may be useful in analyses of, for example, persuasion based on variables measured pre-chat:
+
+```r
+survey_data <- getAlterVars(survey_data, var_names = c("treatment", "ideo_7", "affpol_pre", "male", "PID_6"))
+```
+
+Note that this function is not designed for group sizes larger than 2.  For larger groups, it is recommended to first develop a model of participants' effects on each other, and then reshape the data as appropriate for one's modelling approach.
