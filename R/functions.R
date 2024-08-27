@@ -164,7 +164,7 @@ printChat <- function(chat, width=500, height=500, file = "chat_export", format 
   #text = c(text, '<link href="shinyChatR.css" rel="stylesheet">')
   text = c(text, '</head>')
   text = c(text, '<style type="text/css">')
-  text = c(text, system.file("inst", "print_chat.css", package="rechat"))
+  text = c(text, read_lines(system.file("css", "myChat.css", package="rechat")))
   text = c(text, '</style>')
 
   #text = c(text, '')
