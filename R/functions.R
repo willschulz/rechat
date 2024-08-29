@@ -26,7 +26,7 @@ parseChat <- function(file) {
     chats_list[[i]] <- thischatlist
   }
   for (i in 1:length(chats_list)){
-    chats_list[[i]]$messages <- left_join(chats_list[[i]]$messages, chats_list[[i]]$participants, by = c("participantCode" = "colorCode"))
+    chats_list[[i]]$messages <- dplyr::left_join(chats_list[[i]]$messages, chats_list[[i]]$participants, by = c("participantCode" = "colorCode"))
   }
   return(chats_list)
 }
@@ -171,7 +171,7 @@ printChat <- function(chat, width=500, height=500, file = "chat_export", format 
   text = c(text, '<body>')
   text = c(text, '<div class="chatMessages" width="',width,'px" style="height:',height,'px">\n<div id="test2-chatbox" class="shiny-html-output shiny-bound-output" aria-live="polite">')
   for (i in 1:nrow(messages)){
-    text = c(text, '<div class="chatMessage',if_else(messages$participantCode[i]==messages$participantCode[1], true = " me", false = ""),'"><p>',messages$message[i],'</br><strong>',if_else(messages$participantCode[i]==messages$participantCode[1], true = "user1", false = "user2"),'</strong>','</p></div>')
+    text = c(text, '<div class="chatMessage',dplyr::if_else(messages$participantCode[i]==messages$participantCode[1], true = " me", false = ""),'"><p>',messages$message[i],'</br><strong>',dplyr::if_else(messages$participantCode[i]==messages$participantCode[1], true = "user1", false = "user2"),'</strong>','</p></div>')
   }
   text = c(text,'</div>\n</div>')
   #cat(text, sep = "\n")
